@@ -6,3 +6,7 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+# For the current version of the gtk4 crate see: https://crates.io/crates/gtk4
+# To use the functionality of a specific gtk4 version, specify that using a feature
+# To see the current gtk4 version installed on your system run pkg-config --modversion gtk4
+gtk = { version = "0.4.8", package = "gtk4", features = ["v4_6"]}
