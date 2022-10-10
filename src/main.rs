@@ -1,6 +1,6 @@
 use iced::Settings;
 use iced::pure::Sandbox;
-use iced::pure::widget::{Button, Text, Column, Container};
+use iced::pure::widget::{Button, Text, Column, Container, Image};
 
 // const APP_ID: &str = "org.tp.techniktobi.luixpreview";
 
@@ -56,7 +56,12 @@ impl Sandbox for Counter
         let button_increment = Button::new("Increment").on_press(ECounterMessage::Increment);
         let button_decrement = Button::new("Decrement").on_press(ECounterMessage::Decrement);
 
+        let image = Image::new("image.png")
+            .width(iced::Length::Fill)
+            .height(iced::Length::Fill);
+
         let column = Column::new()
+            .push(image)
             .push(label)
             .push(button_increment)
             .push(button_decrement);
@@ -68,6 +73,26 @@ impl Sandbox for Counter
             .height(iced::Length::Fill)
             .into()
     }
+
+    fn background_color(&self) -> iced::Color {
+        iced::Color::WHITE
+    }
+
+    fn scale_factor(&self) -> f64 {
+        1.0
+    }
+
+    fn should_exit(&self) -> bool {
+        false
+    }
+
+    fn run(settings: Settings<()>) -> Result<(), iced::Error>
+        where
+    Self: 'static + Sized,
+    {
+        <Self as iced::pure::Application>::run(settings)
+    }
+
 }
 
 fn
