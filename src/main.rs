@@ -1,8 +1,13 @@
+use gtk::ffi::GTK_RESPONSE_CANCEL;
 use gtk::prelude::*;
 use gtk::AboutDialog;
 use gtk::Application;
 use gtk::ApplicationWindow;
 use gtk::Button;
+
+use std::path::PathBuf;
+use gtk::FileChooserDialog;
+use gtk::FileFilter;
 
 const APP_ID: &str = "org.tp.techniktobi.luixpreview";
 
@@ -49,12 +54,22 @@ build_ui
 
 	button.connect_clicked(button_clicked);
 
+    let open_dialog = FileChooserDialog::builder()
+        .application(app)
+        .decorated(true)
+        .deletable(true)
+        .focus_visible(true)
+        .visible(false)
+        .title("Testing the File Dialog")
+        .build();
+
 	// Create a new window & set its title
 	let window = ApplicationWindow::builder()
 		.application(app)
 		.title("LuixPreview")
 		.child(&about_dialog)
 		.child(&button)
+        .child(&open_dialog)
 		.build();
 	
 	// Present the window
@@ -68,4 +83,51 @@ button_clicked
 )
 {
 	button.set_label("Hello World!");
+}
+
+
+fn 
+show_open_dialog
+(
+    parent: &ApplicationWindow
+)
+-> Option<PathBuf>
+{
+    // let mut file = None;
+    let file_filter = FileFilter::new();
+    file_filter.set_name(Some("Image file"));
+
+    let dialog = FileChooserDialog::new(
+        Some("Select file"),
+        Some(parent),
+        gtk::FileChooserAction::Open,
+        &[
+            ("Cancel", gtk::ResponseType::Cancel),
+            ("Accept", gtk::ResponseType::Accept)
+        ]
+    );
+    dialog.add_filter(&file_filter);
+
+    
+
+    /* 
+    dialog.connect_response(clone!(@weak text_view => move |file_chooser, response| {
+        if response == gtk::ResponseType::Ok {
+            let filename = file_chooser.get_filename().expect("Couldn't get filename");
+            let file = File::open(&filename).expect("Couldn't open file");
+
+            let mut reader = BufReader::new(file);
+            let mut contents = String::new();
+            let _ = reader.read_to_string(&mut contents);
+
+            text_view
+                .get_buffer()
+                .expect("Couldn't get window")
+                .set_text(&contents);
+        }
+        file_chooser.close();
+    }));
+    */
+
+    return None;
 }
