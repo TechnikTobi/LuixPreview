@@ -1,93 +1,25 @@
 use iced::Settings;
-use iced::executor;
-use iced::Command;
-use iced::pure::Application;
+use iced::pure::Sandbox;
 use iced::pure::widget::{Button, Text, Column, Container, Image};
 
 // const APP_ID: &str = "org.tp.techniktobi.luixpreview";
 
 struct 
-Luix
+Counter
 {
-	some_var: i32
+	count: i64
 }
 
 #[derive(Debug, Clone, Copy)]
 enum
-ELuixMessage
+ECounterMessage
 {
 	Increment,
 	Decrement
 }
 
-impl
-Application
-for
-Luix
+impl Sandbox for Counter
 {
-
-    type Executor = executor::Default;
-    type Message = ELuixMessage;
-    type Flags = ();
-
-    fn new(flags: Self::Flags) -> (Self, iced::Command<Self::Message>) {
-        (
-            Luix
-            {
-                some_var: 0
-            },
-            Command::none()
-        )
-    }
-
-    fn title(&self) -> String {
-        String::from("LuixPreview")
-    }
-
-    fn update(&mut self, message: Self::Message) -> iced::Command<Self::Message> {
-        Command::none()
-    }
-
-    fn view(&self) -> iced::pure::Element<'_, Self::Message> {
-    
-        let image_view = Image::new("image.png")
-            .width(iced::Length::Fill)
-            .height(iced::Length::Fill);
-
-        return image_view.into();
-    }
-
-    fn subscription(&self) -> iced::Subscription<Self::Message> {
-        iced::Subscription::none()
-    }
-
-    fn mode(&self) -> iced::window::Mode {
-        iced::window::Mode::Windowed
-    }
-
-    fn background_color(&self) -> iced::Color {
-        iced::Color::WHITE
-    }
-
-    fn scale_factor(&self) -> f64 {
-        1.0
-    }
-
-    fn should_exit(&self) -> bool {
-        false
-    }
-
-    /*
-    fn run(settings: Settings<Self::Flags>) -> iced::Result
-    where
-        Self: 'static,
-    {
-        <Instance<Self> as iced::Application>::run(settings)
-    }
-    */
-
-
-    /*
 	// A type alias to the Message type we will use
     type Message = ECounterMessage;
 
@@ -160,7 +92,6 @@ Luix
     {
         <Self as iced::pure::Application>::run(settings)
     }
-    */
 
 }
 
@@ -168,5 +99,5 @@ fn
 main
 () 
 {
-	Luix::run(Settings::default()).expect("Could not start application");
+	Counter::run(Settings::default()).expect("Could not start application");
 }	
