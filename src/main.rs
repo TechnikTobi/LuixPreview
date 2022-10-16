@@ -6,6 +6,8 @@ use iced::pure::widget::{Button, Text, Column, Container, Image};
 
 // const APP_ID: &str = "org.tp.techniktobi.luixpreview";
 
+// Stop using iced
+
 struct 
 Luix
 {
